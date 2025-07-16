@@ -29,6 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// 🧠 Fetch all drivers to display
+$drivers = [];
+$result = $conn->query("SELECT id, name FROM Drivers ORDER BY id DESC");
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $drivers[] = $row;
+    }
+}
+
 $conn->close();
 ?>
 
@@ -41,6 +50,7 @@ $conn->close();
 </head>
 <body>
     <h1>Admin Panel</h1>
+
     <form method="post">
         <label for="driver_name">Driver Name:</label>
         <input type="text" id="driver_name" name="driver_name" required>
@@ -51,8 +61,28 @@ $conn->close();
         <p><?= htmlspecialchars($message) ?></p>
     <?php endif; ?>
 
+    <h2>Driver Roster</h2>
+    <?php if (count($drivers) > 0): ?>
+        <table border="1" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($drivers as $driver): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($driver['id']) ?></td>
+                        <td><?= htmlspecialchars($driver['name']) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p>No drivers found yet.</p>
+    <?php endif; ?>
+
     <p><a href="logout.php">Log out</a></p>
 </body>
 </html>
-
-
