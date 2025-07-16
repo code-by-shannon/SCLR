@@ -29,6 +29,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// driver deletion logic
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
+    $deleteId = (int) $_POST['delete_id'];
+    $stmt = $conn->prepare("DELETE FROM Drivers WHERE id = ?");
+    $stmt->bind_param("i", $deleteId);
+    if ($stmt->execute()) {
+        $message = "🗑️ Driver deleted.";
+    } else {
+        $message = "❌ Failed to delete driver: " . $stmt->error;
+    }
+    $stmt->close();
+}
+
 // 🧠 Fetch all drivers to display
 $drivers = [];
 $result = $conn->query("SELECT id, name FROM Drivers ORDER BY id DESC");
@@ -64,21 +77,29 @@ $conn->close();
     <h2>Driver Roster</h2>
     <?php if (count($drivers) > 0): ?>
         <table border="1" cellpadding="8">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($drivers as $driver): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($driver['id']) ?></td>
-                        <td><?= htmlspecialchars($driver['name']) ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($drivers as $driver): ?>
+            <tr>
+                <td><?= htmlspecialchars($driver['id']) ?></td>
+                <td><?= htmlspecialchars($driver['name']) ?></td>
+                <td>
+                    <form method="post" style="display:inline;">
+                        <input type="hidden" name="delete_id" value="<?= $driver['id'] ?>">
+                        <button type="submit" onclick="return confirm('Delete this driver?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
     <?php else: ?>
         <p>No drivers found yet.</p>
     <?php endif; ?>
