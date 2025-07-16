@@ -74,7 +74,7 @@ $conn->close();
         <p><?= htmlspecialchars($message) ?></p>
     <?php endif; ?>
 
-    <h2>Driver Roster</h2>
+    <h2>Driver Roster - Euro Series</h2>
     <?php if (count($drivers) > 0): ?>
         <table border="1" cellpadding="8">
     <thead>
@@ -105,5 +105,6 @@ $conn->close();
     <?php endif; ?>
 
     <p><a href="logout.php">Log out</a></p>
+    <p><a href="index.php">Home</a></p>
 </body>
 </html>
