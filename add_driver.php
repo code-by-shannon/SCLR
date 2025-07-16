@@ -1,4 +1,14 @@
 <?php
+session_start();
+if (!($_SESSION['logged_in'] ?? false)) {
+    header("Location: login.php");
+    exit;
+}
+?>
+
+
+
+<?php
 // Connect to the SCLR database
 $conn = new mysqli("localhost", "root", "", "SCLR");
 

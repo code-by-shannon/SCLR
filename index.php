@@ -7,14 +7,7 @@
     <title>SCLR</title>
 </head>
 <body>
-    <h1>SCLR</h1>
-<!-- Driver Entry Form -->
-    <form action="add_driver.php" method="post">
-    <label for="driver_name">Driver Name:</label>
-    <input type="text" id="driver_name" name="driver_name" required>
-    <button type="submit">Add Driver</button>
-</form>
-
+    <h1>Welcome to Seriously Casual League Racing</h1>
+    <a href="login.php">Add Driver</a>
 </body>
 </html>
-
