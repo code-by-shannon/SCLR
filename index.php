@@ -10,5 +10,6 @@
     <h1>Welcome to Seriously Casual League Racing</h1>
     <a href="login.php">Add Driver</a>
     <a href="add_car.php">Add Car</a>
+    <a href="driver_car.php">Driver and Car</a>
 </body>
 </html>

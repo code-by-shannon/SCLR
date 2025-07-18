@@ -21,7 +21,21 @@ if ($conn->connect_error) {
 
 $message = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// delete logic
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
+    $deleteId = (int) $_POST['delete_id'];
+    $stmt = $conn->prepare("DELETE FROM cars WHERE id = ?");
+    $stmt->bind_param("i", $deleteId);
+    if ($stmt->execute()) {
+        $message = "🗑️ Car deleted.";
+    } else {
+        $message = "❌ Error deleting car: " . $stmt->error;
+    }
+    $stmt->close();
+}
+
+// insert logic
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['manufacturer'])) {
     $manufacturer = trim($_POST['manufacturer'] ?? '');
     $model = trim($_POST['model'] ?? '');
     $type = $_POST['type'] ?? '';
@@ -40,8 +54,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+$cars = [];
+$result = $conn->query("SELECT id, manufacturer, model, type FROM cars ORDER BY id DESC");
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $cars[] = $row;
+    }
+}
+
+
+
 $conn->close();
 ?>
+
+
+
 
 
 
@@ -78,5 +105,41 @@ $conn->close();
     <?php if ($message): ?>
         <p><?= htmlspecialchars($message) ?></p>
     <?php endif; ?>
+
+    <h2>Car List</h2>
+
+<?php if (count($cars) > 0): ?>
+    <table border="1" cellpadding="8">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Manufacturer</th>
+                <th>Model</th>
+                <th>Type</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($cars as $car): ?>
+                <tr>
+                    <td><?= htmlspecialchars($car['id']) ?></td>
+                    <td><?= htmlspecialchars($car['manufacturer']) ?></td>
+                    <td><?= htmlspecialchars($car['model']) ?></td>
+                    <td><?= htmlspecialchars($car['type']) ?></td>
+                    <td>
+                        <form method="post" style="display:inline;">
+                            <input type="hidden" name="delete_id" value="<?= $car['id'] ?>">
+                            <button type="submit" onclick="return confirm('Delete this car?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <p>No cars in the garage yet.</p>
+<?php endif; ?>
+
+<a href="index.php">home</a>
 </body>
 </
