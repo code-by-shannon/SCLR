@@ -11,5 +11,7 @@
     <a href="login.php">Add Driver</a>
     <a href="add_car.php">Add Car</a>
     <a href="driver_car.php">Driver and Car</a>
+    <a href="tracks.php">Tracks</a>
+    <a href="lap_app.php">Lap App</a>
 </body>
 </html>
