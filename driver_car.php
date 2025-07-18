@@ -49,6 +49,16 @@ $drivers = $conn->query("SELECT id, name FROM drivers ORDER BY name");
 $cars = $conn->query("SELECT id, manufacturer, model, type FROM cars ORDER BY manufacturer, model");
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SCLR Assignments</title>
+    <link rel="stylesheet" href="driver_car.css">
+</head>
+<body>
+
+
 <div style='display:flex; gap:2rem'>
     <div>
         <h2>Drivers</h2>
@@ -113,11 +123,11 @@ $cars = $conn->query("SELECT id, manufacturer, model, type FROM cars ORDER BY ma
 </form>
 </div>
 
-</div>
 
-<h2>Driver Assignments (GR3 & GR4)</h2>
+<div class='driver_ass_div'>
+<h2 class = 'driver_assignment_h2'>Driver Assignments (GR3 & GR4)</h2>
 
-<table border="1" cellpadding="8">
+<table border="1" cellpadding="8" class='driver_assignments'>
   <tr>
     <th>Driver</th>
     <th>Car (GR3)</th>
@@ -145,7 +155,18 @@ ORDER BY d.name
     </tr>
   <?php endwhile; ?>
 </table>
+</div>
+
+</div>
 
 
 <a href="index.php">home</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SCLR Assignments</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 

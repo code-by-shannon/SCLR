@@ -1,0 +1,47 @@
+.driver_ass_div{
+    background-color: floralwhite;
+    padding:1rem;
+}
+
+.driver_assignment_h2{
+    text-align: center;
+    margin-bottom:-20px;
+    color:#ff6600;
+    text-shadow: .5px .5px 1px black;
+}
+
+.driver_assignments {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    background-color: #0088cc; /* black table bg */
+    color: rgb(241, 233, 241);
+    font-family: 'Segoe UI', sans-serif;
+    border: none;
+    box-shadow: 0 0 15px rgba(255, 102, 0, 0.2); /* orange glow */
+    text-shadow: 1px 1px 1px black;
+}
+
+.driver_assignments th,
+.driver_assignments td {
+    padding: 1rem;
+    text-align: left;
+    border: none;
+}
+
+.driver_assignments th {
+    background-color: #ff6600; /* bright orange */
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.driver_assignments tr:nth-child(even) {
+    background-color: #057ebb; /* subtle striping */
+}
+
+.driver_assignments tr:hover {
+    background-color: #0088cc; /* light blue hover */
+    color: #fff;
+}
