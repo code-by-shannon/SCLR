@@ -1,4 +1,9 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
 include 'db.php';
 $conn = connectToDB();
 $message = '';
@@ -7,6 +12,69 @@ function secondsToLapFormat(float $seconds): string {
     $minutes = floor($seconds / 60);
     $remainder = $seconds - ($minutes * 60);
     return sprintf('%d:%06.3f', $minutes, $remainder);
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_session_id'])) {
+    $idToDelete = (int)$_POST['delete_session_id'];
+    $stmt = $conn->prepare("DELETE FROM session_summaries WHERE id = ?");
+    $stmt->bind_param("i", $idToDelete);
+    if ($stmt->execute()) {
+        $message = "🗑 Session deleted.";
+    } else {
+        $message = "❌ Error deleting session: " . $stmt->error;
+    }
+    $stmt->close();
+}
+ 
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_session'])) {
+    $notes = trim($_POST['session_notes'] ?? '');
+    $notes = (string)$notes;  // ✅ make sure it's a string
+
+    if ($notes === '') {
+        $notes = ' ';
+    }
+
+    
+    
+    
+
+    // Get summary stats
+    $summaryQuery = $conn->query("
+        SELECT COUNT(*) AS lap_count, 
+               AVG(CASE WHEN is_pit = 0 THEN lap_seconds END) AS avg_clean_lap,
+               MIN(CASE WHEN is_pit = 0 THEN lap_seconds END) AS best_lap,
+               AVG(CASE WHEN is_pit = 1 THEN lap_seconds END) -
+               AVG(CASE WHEN is_pit = 0 THEN lap_seconds END) AS pit_delta
+        FROM lap_times
+    ");
+
+    $summary = $summaryQuery->fetch_assoc();
+    $avgLap = (float)$summary['avg_clean_lap'];
+    $bestLap = (float)$summary['best_lap'];
+    $pitDelta = (float)$summary['pit_delta'];
+    $totalLaps = (int)$summary['lap_count'];
+
+    // Insert into session_summaries table
+    $stmt = $conn->prepare("
+        INSERT INTO session_summaries (avg_clean_lap, best_lap, pit_delta, total_laps, notes)
+        VALUES (?, ?, ?, ?, ?)
+    ");
+    $stmt->bind_param("dddis", $avgLap, $bestLap, $pitDelta, $totalLaps, $notes);
+    
+    if ($stmt->execute()) {
+        $message = "✅ Session saved. You can now reset your laps.";
+    } else {
+        $message = "❌ Error saving session: " . $stmt->error;
+    }
+    $stmt->close();
+
+  
+
+    // ✅ Now clear the lap data for a fresh start
+    $conn->query("DELETE FROM lap_times");
+
+
 }
 
 
@@ -161,6 +229,51 @@ $pitDeltaFmt = round($pitDelta, 3);
         <td><?= $pitDeltaFmt ?> seconds</td>
     </tr>
 </table>
+
+<h3>Save Session</h3>
+<form method="post" action="lap_app.php">
+    Notes (optional): <br>
+    <textarea name="session_notes" rows="3" cols="40"></textarea><br><br>
+    <button type="submit" name="save_session">Save Session & Reset</button>
+</form>
+
+<?php
+$sessionResults = $conn->query("SELECT * FROM session_summaries ORDER BY session_date DESC");
+
+if ($sessionResults && $sessionResults->num_rows > 0): ?>
+    <h3>Session Archive</h3>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Date</th>
+            <th>Avg Lap (M:S.ms)</th>
+            <th>Best Lap (M:S.ms)</th>
+            <th>Pit Delta (s)</th>
+            <th>Total Laps</th>
+            <th>Notes</th>
+        </tr>
+        <?php while ($row = $sessionResults->fetch_assoc()): ?>
+        <tr>
+            <td><?= htmlspecialchars($row['session_date']) ?></td>
+            <td><?= secondsToLapFormat((float)$row['avg_clean_lap']) ?></td>
+            <td><?= secondsToLapFormat((float)$row['best_lap']) ?></td>
+            <td><?= round($row['pit_delta'], 3) ?> s</td>
+            <td><?= (int)$row['total_laps'] ?></td>
+            <td>
+    <?= nl2br(htmlspecialchars($row['notes'])) ?><br>
+    <form method="post" action="lap_app.php" style="display:inline;">
+        <input type="hidden" name="delete_session_id" value="<?= $row['id'] ?>">
+        <button type="submit" onclick="return confirm('Delete this session?')">🗑 Delete</button>
+    </form>
+</td>
+
+        </tr>
+        <?php endwhile; ?>
+    </table>
+<?php else: ?>
+    <p>No session summaries saved yet.</p>
+<?php endif; ?>
+
+
 
 </body>
 </html>
