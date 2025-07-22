@@ -48,7 +48,7 @@ $result = $conn->query($sql);
 
     th, td {
       padding: 12px;
-      text-align: center;
+      text-align: left;
       border-bottom: 1px solid #ccc;
     }
 
