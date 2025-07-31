@@ -25,6 +25,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_session_id']))
     }
     $stmt->close();
 }
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['clear_archive'])) {
+    $conn->query("DELETE FROM session_summaries");
+    $message = "🧹 Archive cleared.";
+}
+
  
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_session'])) {
@@ -216,6 +222,7 @@ $avgPitFmt = secondsToLapFormat($avgPit);
 $pitDeltaFmt = round($pitDelta, 3);
 ?>
 
+
 <h3>Pit Delta Summary</h3>
 <table border="1" cellpadding="5">
     <tr>
@@ -259,18 +266,26 @@ if ($sessionResults && $sessionResults->num_rows > 0): ?>
             <td><?= round($row['pit_delta'], 3) ?> s</td>
             <td><?= (int)$row['total_laps'] ?></td>
             <td>
-    <?= nl2br(htmlspecialchars($row['notes'])) ?><br>
-    <form method="post" action="lap_app.php" style="display:inline;">
-        <input type="hidden" name="delete_session_id" value="<?= $row['id'] ?>">
-        <button type="submit" onclick="return confirm('Delete this session?')">🗑 Delete</button>
-    </form>
-</td>
+            <?= nl2br(htmlspecialchars($row['notes'])) ?><br>
 
+                <form method="post" action="lap_app.php" style="display:inline;">
+                    <input type="hidden" name="delete_session_id" value="<?= $row['id'] ?>">
+                    <button type="submit" onclick="return confirm('Delete this session?')">🗑 Delete</button>
+                </form>
+            </td>
         </tr>
         <?php endwhile; ?>
     </table>
-<?php else: ?>
-    <p>No session summaries saved yet.</p>
+    <h3>Clear Archive</h3>
+        <form method="post" action="lap_app.php" onsubmit="return confirm('Are you sure you want to clear the session archive? This cannot be undone.')">
+            <button type="submit" name="clear_archive">🧹 Start New Archive</button>
+            <p>No session summaries saved yet.</p>
+        </form>    
+
+
+    <?php else: ?>
+    
+    
 <?php endif; ?>
 
 
