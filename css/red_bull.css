@@ -1,0 +1,76 @@
+body {
+    background: blue;
+    color: #e0e0e0;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    padding: 2rem;
+    background-image: url('../imgs/flag_girl.png'),
+    linear-gradient(to bottom, rgb(65, 64, 64), rgb(16, 16, 16)); /* red to gold */
+    background-repeat: no-repeat;
+}
+
+  h1 {
+    color: rgb(240, 247, 250);
+    background-color: rgb(27, 24, 24);
+    width:60%;
+    text-emphasis: center;
+    text-shadow: 2px 2px 8px rgb(93, 3, 3);
+    margin:4rem auto 2rem;
+    font-size: 3rem;
+    opacity:.8;
+    border-radius:4px;
+  }
+
+  .logo {
+    max-width: 180px;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 8px #fff);
+  }
+
+  table {
+    width: 98%;
+    margin: 5rem auto 2rem;
+    border-collapse: collapse;
+    background-color: rgb(213, 188, 20);
+    border: 2px solid #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    opacity:.8;
+    color:black;
+  }
+
+  thead {
+    background:black;
+    color: rgb(255, 208, 0);
+    font-weight: bold;
+    font-size: 2rem;
+  }
+
+  th, td {
+    padding: 1rem;
+    border: 1px solid #eadd97;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: rgb(228, 16, 16);
+  }
+
+  tbody tr:nth-child(odd) {
+    background-color: rgb(255, 213, 0);
+  }
+
+  tbody tr:hover {
+    background-color: #0033a0;
+    color: #ffd700;
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  td:first-child {
+    font-weight: bold;
+    color: black;
+  }
+
+  td{
+    font-size: 1.6rem;
+  }

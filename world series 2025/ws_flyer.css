@@ -1,0 +1,36 @@
+body{
+    background-color: rgb(18, 1, 1);
+}
+
+img{
+    display:block;
+    margin:1rem auto;
+    text-align: center;
+    width:30%;
+    height: auto;
+}
+
+div{
+    color:white;
+    text-align: center;
+    background-color: floralwhite;
+    width:32%;
+    height: 8rem;
+    margin:-6rem auto;
+    position:relative;
+    z-index: 99;
+    border-radius: 4px;
+    display:flex;
+}
+
+img[src$=".svg"] {
+    width: 100px;
+    height: auto;
+}
+
+div img[src$=".svg"]:nth-of-type(3) {
+    color:white;
+  }
+  
+  
+

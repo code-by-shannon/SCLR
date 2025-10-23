@@ -1,0 +1,31 @@
+body{
+    background-color: rgb(20, 199, 20);
+}
+
+h1{
+    color:floralwhite;
+    font-size: 10rem;
+    text-align: center;
+}
+
+#discord_logo{
+    width:70%;
+    text-align: center;
+    margin:50rem auto;
+}
+
+#discord_logo img{
+    width:50%;
+    border-radius: 4px;
+    
+}
+
+#flag_girl{
+    border:solid 8px rgb(252, 187, 67);
+}
+
+#checkered_logo_SCLR{
+    margin-top: -15rem;
+    opacity:.8;
+    width:25rem;
+}

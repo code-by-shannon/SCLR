@@ -1,0 +1,55 @@
+@font-face {
+    font-family: 'RaceSport';
+    src: url('fonts/Race Sport Free.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  
+
+body{
+    margin-top:2rem;
+    color:white;
+    background-color: rgb(34, 32, 32);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: 'Racesport';
+    background-image: url('../imgs/checkeredFlagOnFire.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+h1{
+    text-align: center;
+    font-family: 'RaceSport';
+}
+
+table{
+    width:30%;
+    margin:auto;
+    background-color: rgb(21, 17, 17);
+    opacity:.8;
+    padding:4rem;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px orange;
+}
+
+caption{
+    font-family: 'RaceSport';
+    font-size: 4rem;
+}
+
+th,td{
+    font-size: 2rem;
+}
+
+th{
+    text-align: center;
+    padding-bottom:1rem;
+}
+
+td{
+    text-align: center;
+}
