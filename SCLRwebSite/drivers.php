@@ -52,6 +52,40 @@ if ($result) {
     $errors[] = "Query failed: " . $conn->error;
 }
 
+// ---- FETCH WORLD SERIES ROUNDS WITH TRACK NAMES ----
+$seasonRows = [];
+$seasonQ = "
+  SELECT w.id, w.round, w.track_id, t.course AS track_name
+  FROM SCLR_World_Series_Fall_2025 AS w
+  LEFT JOIN tracks AS t ON w.track_id = t.id
+  ORDER BY w.round ASC, w.id ASC
+";
+if ($res2 = $conn->query($seasonQ)) {
+    while ($row = $res2->fetch_assoc()) {
+        $seasonRows[] = $row;
+    }
+    $res2->free();
+} else {
+    $errors[] = "World Series query failed: " . $conn->error;
+}
+
+// ---- FETCH POINTS SYSTEM (no join) ----
+$pointsRows = [];
+$pointsQ = "
+  SELECT id, position, points
+  FROM points_system
+  ORDER BY position ASC
+";
+if ($res3 = $conn->query($pointsQ)) {
+    while ($row = $res3->fetch_assoc()) $pointsRows[] = $row;
+    $res3->free();
+} else {
+    $errors[] = "Points System query failed: " . $conn->error;
+}
+
+
+
+
 $conn->close();
 ?>
 <!DOCTYPE html>
@@ -76,7 +110,7 @@ $conn->close();
 </style>
 </head>
 <body>
-  <a href="index.php">Home</a>
+  <a href="index.php"></a>
   <h1>Drivers</h1>
   <p class="muted">DB: <strong>SCLR</strong> · Table: <strong>Drivers</strong></p>
 
@@ -120,5 +154,57 @@ $conn->close();
       <?php endif; ?>
     </tbody>
   </table>
+
+  <h2 style="margin-top:2rem;">World Series (Fall 2025)</h2>
+<p class="muted">Table: <strong>SCLR_World_Series_Fall_2025</strong> joined with <strong>tracks</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th style="width:90px;">ID</th>
+      <th>Round</th>
+      <th>Track ID</th>
+      <th>Track Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php if (count($seasonRows) === 0): ?>
+      <tr><td colspan="4"><em>No rounds found.</em></td></tr>
+    <?php else: ?>
+      <?php foreach ($seasonRows as $r): ?>
+        <tr>
+          <td><?= (int)$r['id'] ?></td>
+          <td><?= htmlspecialchars($r['round']) ?></td>
+          <td><?= htmlspecialchars($r['track_id']) ?></td>
+          <td><?= htmlspecialchars($r['track_name'] ?? 'Unknown') ?></td>
+        </tr>
+      <?php endforeach; ?>
+    <?php endif; ?>
+  </tbody>
+</table>
+
+<h2 style="margin-top:2rem;">Points System</h2>
+<p class="muted">Table: <strong>points_system</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th style="width:90px;">ID</th>
+      <th>Position</th>
+      <th>Points</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php if (!$pointsRows): ?>
+      <tr><td colspan="3"><em>No points rules found.</em></td></tr>
+    <?php else: foreach ($pointsRows as $p): ?>
+      <tr>
+        <td><?= (int)$p['id'] ?></td>
+        <td><?= htmlspecialchars($p['position']) ?></td>
+        <td><?= htmlspecialchars($p['points']) ?></td>
+      </tr>
+    <?php endforeach; endif; ?>
+  </tbody>
+</table>
+
+
 </body>
 </html>
