@@ -110,7 +110,7 @@ $conn->close();
 </style>
 </head>
 <body>
-  <a href="index.php"></a>
+  <a href="index.php">Home</a>
   <h1>Drivers</h1>
   <p class="muted">DB: <strong>SCLR</strong> · Table: <strong>Drivers</strong></p>
 
