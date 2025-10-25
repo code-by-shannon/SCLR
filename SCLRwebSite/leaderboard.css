@@ -1,0 +1,50 @@
+@font-face {
+    font-family: 'RaceSport';
+    src: url('../flyers/fonts/Race Sport Free.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body { 
+    padding: 24px; 
+}
+
+h1{
+  
+  color:green;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 3rem;
+}
+
+h1, tr{
+    font-family: 'RaceSport';
+}
+
+table { 
+    border-collapse: collapse; 
+    width: 100%; 
+}
+
+th, td { 
+    border: 1px solid #ccc; 
+    padding: 8px 10px; 
+}
+
+th { 
+    background: #f5f5f5; 
+}
+
+td.num { 
+    text-align: right; 
+    font-variant-numeric: tabular-nums; 
+}
+
+th.driver, td.driver { 
+    text-align: left; 
+    white-space: nowrap; 
+}
+
+thead th.sticky { 
+    position: sticky; top: 0; 
+}

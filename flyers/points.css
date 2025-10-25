@@ -9,7 +9,7 @@
 
 body{
     margin-top:2rem;
-    color:white;
+    color:rgb(52, 71, 162);
     background-color: rgb(34, 32, 32);
     display: flex;
     flex-direction: column;
@@ -23,7 +23,9 @@ body{
 
 h1{
     text-align: center;
+    text-transform: uppercase;
     font-family: 'RaceSport';
+
 }
 
 table{
