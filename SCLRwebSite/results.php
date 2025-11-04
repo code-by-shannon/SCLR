@@ -68,6 +68,7 @@ function ordinal_label($pos) {
   </style>
 </head>
 <body>
+  <a href="index.php">Home</a>
   <h1>Enter Race Results</h1>
 
   <form method="post" action="save_results.php">
