@@ -236,6 +236,12 @@ usort($drivers, function($a, $b) {
     <span class="pill">dropped</span> = lowest round removed
   </p>
 
+<div id="svg">
+  <img src="imgs/a-w-4.svg" alt="A&W Logo" class="sponsor-logo">
+  <img src="imgs/haagen-dazs-2.svg" alt="Häagen-Dazs Logo" class="sponsor-logo">
+  <img src="imgs/brembo-logo-2.svg" alt="Brembo Logo" class="sponsor-logo">
+</div>
+
   <!-- Optional tiny auto-refresh (every 30s). Kill it if you don’t want it. -->
   <script>
     setTimeout(() => location.reload(), 30000);

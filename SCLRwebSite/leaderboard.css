@@ -1,91 +1,131 @@
+/* ===== A&W Root Beer Theme ===== */
 @font-face {
     font-family: 'RaceSport';
     src: url('../flyers/fonts/Race Sport Free.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
-}
+  }
+  
+  :root {
+    --aw-orange: #e87722;
+    --aw-cream: #fdf3e7;
+    --aw-brown: #4e2a1e;
+    --aw-brown-dark: #3a1f15;
+    --aw-highlight: #ffb347;
+  }
+  
+  /* Page background */
+  body {
+    padding: 24px;
+    background: radial-gradient(circle at top left, #5c3528, #2b1811);
+    color: var(--aw-cream);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  
+  /* Heading */
+  h1 {
+    color: var(--aw-orange);
+    text-shadow: 2px 2px 0 var(--aw-brown-dark);
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 3rem;
+    font-family: 'RaceSport', sans-serif;
+    margin-bottom: 24px;
+  }
+  
+  /* Table container */
+  table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: auto;
+    background-color: var(--aw-cream);
+    color: var(--aw-brown);
+    font-size: 1.1rem;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  /* Header row */
+  th {
+    background: linear-gradient(180deg, var(--aw-brown), var(--aw-brown-dark));
+    color: var(--aw-cream);
+    font-family: 'RaceSport', sans-serif;
+    text-transform: uppercase;
+    border-bottom: 3px solid var(--aw-orange);
+    padding: 10px 12px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+  
+  /* Table cells */
+  td, th {
+    border: 1px solid rgba(78,42,30,0.2);
+    padding: 8px 10px;
+  }
+  
+  td.num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  
+  /* Driver column */
+  tbody th.driver,
+  tbody td.driver {
+    background: linear-gradient(90deg, #fff7ee, #fdf3e7);
+    font-weight: bold;
+    color: var(--aw-brown-dark);
+  }
+  
+  /* Alternate row shading */
+  tbody tr:nth-child(odd) td {
+    background-color: #fffaf4;
+  }
+  tbody tr:nth-child(even) td {
+    background-color: #f8eee4;
+  }
+  
+  /* Highlight first track column (optional) */
+  table td:nth-child(2) {
+    background-color: var(--aw-highlight);
+    color: var(--aw-brown-dark);
+    font-weight: bold;
+  }
+  
+  /* Dropped result */
+  #leaderboard td.dropped {
+    color: var(--aw-orange);
+    font-weight: bold;
+  }
+  
+  /* Legend */
+  .legend {
+    margin-top: 12px;
+    font-size: 0.95rem;
+    color: var(--aw-cream);
+    text-align: center;
+  }
+  .legend .pill {
+    padding: 2px 8px;
+    border: 1px solid var(--aw-orange);
+    border-radius: 10px;
+    background: var(--aw-brown);
+    color: var(--aw-cream);
+  }
 
-body { 
-    padding: 24px; 
-    background-color: rgb(51, 44, 44);
-}
-
-h1{
-  color: rgb(108, 131, 245);
-  text-shadow: 2px 2px 1px gold;
-  text-transform: uppercase;
-  text-align: center;
-  font-size: 3rem;
-}
-
-h1, tr{
-    font-family: 'RaceSport';
-}
-
-table { 
-    border-collapse: collapse; 
-    width: 100%; 
-    background-color: aliceblue;
+  #svg{
+    display:flex;
     width:80%;
-    margin:auto;
-    font-size: 1.2rem;
+    margin: auto;
+    border:solid orange 3px;
+    justify-content: space-around;
 }
 
-th, td { 
-    border: 1px solid #ccc; 
-    padding: 8px 10px; 
+#svg img{
+    width:250px;
+    margin:2rem;
+    opacity:.8;
+    padding:0;
 }
-
-th { 
-    background: #171587; 
-    color:aliceblue;
-}
-
-td.num { 
-    text-align: right; 
-    font-variant-numeric: tabular-nums; 
-}
-
-th.driver, td.driver { 
-    text-align: left; 
-    white-space: nowrap; 
-}
-
-thead th.sticky { 
-    position: sticky; top: 0; 
-}
-
-table td:nth-child(2) {
-    /* your styles here */
-    background-color: gold;
-    font-weight: bold;
-  }
-
-  tbody th:nth-child(1),
-  tbody td:nth-child(1) {
-    background-color: #020075;
-    font-weight: bold;
-    color: rgb(180, 211, 239);
-  }
-
-#leaderboard td.dropped { 
-    color:red;
- }
-
-.legend { 
-    margin-top: 8px; 
-    font-size: 0.9rem; 
-    color: floralwhite; 
-}
-
-.legend .pill { 
-    padding: 0 6px; 
-    border: 1px solid rgb(239, 0, 0); 
-    border-radius: 8px; 
-}
-  
-td.num { 
-    text-align: right; 
-}
-  
   
