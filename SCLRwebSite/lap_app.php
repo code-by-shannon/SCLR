@@ -95,6 +95,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lap_number'], $_POST[
         $message = "Invalid format. Use M:SS.mmm";
     } else {
         $stmt = $conn->prepare("INSERT INTO lap_times (lap_number, lap_time, lap_seconds, is_pit) VALUES (?, ?, ?, ?)");
+        $stmt = $conn->prepare("
+    INSERT INTO session_summaries (avg_clean_lap, best_lap, pit_delta, total_laps, notes)
+    VALUES (?, ?, ?, ?, ?)
+");
+
+if (!$stmt) {
+    die("Prepare failed: " . $conn->error);
+}
+
         $stmt->bind_param("isdi", $lapNumber, $lapTime, $lapSeconds, $isPit);
         if ($stmt->execute()) {
             $message = "Lap added.";
@@ -127,6 +136,13 @@ function convertToSeconds($time) {
 // Fetch existing laps
 $result = $conn->query("SELECT * FROM lap_times ORDER BY lap_number ASC");
 ?>
+
+$result = $conn->query("SELECT * FROM lap_times ORDER BY lap_number ASC");
+
+if (!$result) {
+    die("Lap query failed: " . $conn->error);
+}
+
 
 <!DOCTYPE html>
 <html>

@@ -1,131 +1,161 @@
-/* ===== A&W Root Beer Theme ===== */
+/* ===== SCLR SPRINT SERIES THEME ===== */
 @font-face {
-    font-family: 'RaceSport';
-    src: url('../flyers/fonts/Race Sport Free.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-  
-  :root {
-    --aw-orange: #e87722;
-    --aw-cream: #fdf3e7;
-    --aw-brown: #4e2a1e;
-    --aw-brown-dark: #3a1f15;
-    --aw-highlight: #ffb347;
-  }
-  
-  /* Page background */
-  body {
-    padding: 24px;
-    background: radial-gradient(circle at top left, #5c3528, #2b1811);
-    color: var(--aw-cream);
-    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  }
-  
-  /* Heading */
-  h1 {
-    color: var(--aw-orange);
-    text-shadow: 2px 2px 0 var(--aw-brown-dark);
-    text-transform: uppercase;
-    text-align: center;
-    font-size: 3rem;
-    font-family: 'RaceSport', sans-serif;
-    margin-bottom: 24px;
-  }
-  
-  /* Table container */
-  table {
-    border-collapse: collapse;
-    width: 80%;
-    margin: auto;
-    background-color: var(--aw-cream);
-    color: var(--aw-brown);
-    font-size: 1.1rem;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-    border-radius: 12px;
-    overflow: hidden;
-  }
-  
-  /* Header row */
-  th {
-    background: linear-gradient(180deg, var(--aw-brown), var(--aw-brown-dark));
-    color: var(--aw-cream);
-    font-family: 'RaceSport', sans-serif;
-    text-transform: uppercase;
-    border-bottom: 3px solid var(--aw-orange);
-    padding: 10px 12px;
-    position: sticky;
-    top: 0;
-    z-index: 2;
-  }
-  
-  /* Table cells */
-  td, th {
-    border: 1px solid rgba(78,42,30,0.2);
-    padding: 8px 10px;
-  }
-  
-  td.num {
-    text-align: right;
-    font-variant-numeric: tabular-nums;
-  }
-  
-  /* Driver column */
-  tbody th.driver,
-  tbody td.driver {
-    background: linear-gradient(90deg, #fff7ee, #fdf3e7);
-    font-weight: bold;
-    color: var(--aw-brown-dark);
-  }
-  
-  /* Alternate row shading */
-  tbody tr:nth-child(odd) td {
-    background-color: #fffaf4;
-  }
-  tbody tr:nth-child(even) td {
-    background-color: #f8eee4;
-  }
-  
-  /* Highlight first track column (optional) */
-  table td:nth-child(2) {
-    background-color: var(--aw-highlight);
-    color: var(--aw-brown-dark);
-    font-weight: bold;
-  }
-  
-  /* Dropped result */
-  #leaderboard td.dropped {
-    color: var(--aw-orange);
-    font-weight: bold;
-  }
-  
-  /* Legend */
-  .legend {
-    margin-top: 12px;
-    font-size: 0.95rem;
-    color: var(--aw-cream);
-    text-align: center;
-  }
-  .legend .pill {
-    padding: 2px 8px;
-    border: 1px solid var(--aw-orange);
-    border-radius: 10px;
-    background: var(--aw-brown);
-    color: var(--aw-cream);
-  }
-
-  #svg{
-    display:flex;
-    width:80%;
-    margin: auto;
-    border:solid orange 3px;
-    justify-content: space-around;
+  font-family: 'RaceSport';
+  src: url('../flyers/fonts/Race Sport Free.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
-#svg img{
-    width:250px;
-    margin:2rem;
-    opacity:.8;
-    padding:0;
+:root {
+  --bg-dark: #0b0b0b;
+  --bg-panel: #121212;
+  --row-alt: #181818;
+
+  --neon-main: #baff00;
+  --neon-soft: #9cff00;
+  --neon-dim: rgba(186, 255, 0, 0.35);
+
+  --text-main: #eaeaea;
+  --text-dim: #c9ff9d;
+
+  --border-soft: rgba(186, 255, 0, 0.15);
 }
-  
+
+/* ===== PAGE ===== */
+body {
+  padding: 24px;
+  background: radial-gradient(circle at top, #1b1b1b, var(--bg-dark));
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ===== HEADER ===== */
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-family: 'RaceSport', sans-serif;
+  font-size: 3rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--neon-main);
+  text-shadow:
+    0 0 6px rgba(186, 255, 0, 0.8),
+    0 0 16px rgba(120, 255, 0, 0.4);
+}
+
+/* ===== TABLE ===== */
+table {
+  border-collapse: collapse;
+  width: 90%;
+  margin: auto;
+  background: var(--bg-panel);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow:
+    0 0 12px rgba(186, 255, 0, 0.35),
+    0 0 32px rgba(120, 255, 0, 0.25);
+}
+
+/* ===== HEADER ROW ===== */
+th {
+  background: linear-gradient(135deg, #2e3f00, #171e04);
+  color: #eaff9a;
+  font-family: 'RaceSport', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 12px;
+  border-bottom: 2px solid var(--neon-main);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+/* ===== CELLS ===== */
+td, th {
+  border: 1px solid var(--border-soft);
+  padding: 10px 12px;
+}
+
+td.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--neon-main); /* uniform neutral */
+}
+
+
+/* ===== DRIVER COLUMN ===== */
+tbody th.driver {
+  background: linear-gradient(90deg, #141414, #1b1b1b);
+  color: var(--neon-soft);
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+/* ===== ROW STRIPING ===== */
+tbody tr:nth-child(even) td {
+  background: var(--row-alt);
+}
+
+tbody tr:hover td {
+  background: rgba(120, 255, 0, 0.08);
+}
+
+/* ===== FIRST TRACK COLUMN HIGHLIGHT ===== */
+table td:nth-child(2) {
+  color: var(--neon-main);
+  font-weight: bold;
+}
+
+/* ===== DROPPED RESULT ===== */
+#leaderboard td.dropped {
+  color: #ff3b3b;
+  font-weight: 700;
+  text-shadow:
+    0 0 4px rgba(255, 60, 60, 0.9),
+    0 0 10px rgba(255, 0, 0, 0.6),
+    0 0 18px rgba(120, 0, 0, 0.4);
+}
+
+
+/* ===== LEGEND ===== */
+.legend {
+  margin-top: 16px;
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.legend .pill {
+  padding: 3px 10px;
+  border: 1px solid var(--neon-main);
+  border-radius: 12px;
+  background: #1b2600;
+  color: red;
+  box-shadow: 0 0 6px rgba(186, 255, 0, 0.4);
+}
+
+/* ===== SPONSOR STRIP ===== */
+#svg {
+  display: flex;
+  width: 90%;
+  margin: 3rem auto;
+  justify-content: space-around;
+  border: 2px solid var(--neon-main);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(186, 255, 0, 0.25);
+}
+
+#svg img {
+  width: 220px;
+  opacity: 0.85;
+  filter:
+    drop-shadow(0 0 6px rgba(186, 255, 0, 0.6))
+    drop-shadow(0 0 18px rgba(120, 255, 0, 0.4));
+}
+
+.sponsor-logo{
+  object-fit: cover;
+}
+
+

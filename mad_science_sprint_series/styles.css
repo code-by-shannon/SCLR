@@ -1,0 +1,203 @@
+/* ===== RESET / BASE ===== */
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    padding: 2rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: radial-gradient(circle at top, #1b1b1b, #0b0b0b);
+    color: #eaeaea;
+  }
+  
+  /* ===== HEADER ===== */
+  h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #ffd27d;
+    text-shadow: 0 0 10px rgba(255, 80, 80, 0.4);
+  }
+
+  .sprint_series{
+    color:#baff00;
+  }
+  
+  .mad-avatar {
+    display: inline-block;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #baff00;
+    text-shadow:
+      0 0 4px #baff00,
+      0 0 5px #7cff00,
+      0 0 10px rgba(120, 255, 0, 0.8),
+      0 0 15px rgba(120, 255, 0, 0.6);
+    filter: contrast(1.2) saturate(1.4);
+  }
+  
+  /* ===== CAPTION ===== */
+  #caption {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 5rem;
+  }
+  
+  #caption img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    filter:
+      drop-shadow(0 0 6px #baff00)
+      drop-shadow(0 0 14px rgba(120, 255, 0, 0.7))
+      drop-shadow(0 0 28px rgba(120, 255, 0, 0.5));
+  }
+  
+  /* ===== TABLE ===== */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #121212;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow:
+      0 0 12px rgba(186, 255, 0, 0.4),
+      0 0 30px rgba(120, 255, 0, 0.35),
+      0 0 60px rgba(120, 255, 0, 0.2);
+  }
+  
+  /* ===== TABLE HEAD ===== */
+  thead {
+    background: linear-gradient(135deg, #2e3f00, #171e04);
+  }
+  
+  thead th {
+    padding: 1rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #eaff9a;
+    border-bottom: 2px solid #baff00;
+    text-shadow: 0 0 2px rgba(186, 255, 0, 0.8);
+  }
+  
+  /* ===== TABLE BODY ===== */
+  tbody td {
+    padding: 0.9rem;
+    vertical-align: top;
+    line-height: 1.4;
+    color: #c9ff9d;
+    border-bottom: 1px solid rgba(186, 255, 0, 0.15);
+    text-shadow: 0 0 1px rgba(120, 255, 0, 0.35);
+  }
+  
+  /* ===== ROW STYLES ===== */
+  tbody tr:nth-child(even) {
+    background: #181818;
+  }
+  
+  tbody tr:hover {
+    background: rgba(120, 255, 0, 0.08);
+  }
+  
+  /* ===== COLUMN COLORS ===== */
+  .date {
+    font-weight: 700;
+    color: #9cff00;
+    white-space: nowrap;
+  }
+  
+  .sprint_name {
+    font-weight: 700;
+    color: #d8ff6a;
+  }
+  
+  .tracks {
+    color: #7dffcc;
+  }
+  
+  .duration {
+    text-align: center;
+    font-weight: 600;
+    color: #6dff6d;
+  }
+  
+  .hardware {
+    font-size: 0.85rem;
+    color: #a5ffb0;
+  }
+  
+  .details {
+    font-style: italic;
+    color: #e0ff9a;
+  }
+  
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    table {
+      font-size: 0.85rem;
+    }
+  
+    thead th,
+    tbody td {
+      padding: 0.6rem;
+    }
+  }
+  
+
+  /* ===== FOOTER ===== */
+footer.rules {
+    margin-top: 4rem;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    background: radial-gradient(circle at center, #182300, #0b1200);
+    border-radius: 10px;
+  
+    box-shadow:
+      0 0 12px rgba(186, 255, 0, 0.25),
+      inset 0 0 20px rgba(120, 255, 0, 0.1);
+  }
+  
+  /* Base rule text */
+  footer .rule {
+    display: inline-block;
+    margin: 0 0.5rem;
+    font-weight: 700;
+    color: #aaff7a;
+    text-shadow: 0 0 4px rgba(120, 255, 0, 0.5);
+  }
+  
+  /* UNLIMITED HP — make it scream */
+  footer .extreme {
+    color: #d6ff00;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    text-shadow:
+      0 0 6px #d6ff00,
+      0 0 16px rgba(186, 255, 0, 0.9),
+      0 0 30px rgba(186, 255, 0, 0.7);
+  }
+  
+  /* NO WEIGHT RESTRICTIONS — heavy emphasis */
+  footer .heavy {
+    color: #8dff8d;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+  }
+  
+  /* FUN, UNHINGED SIGN-OFF */
+  footer .flavor {
+    display: block;
+    margin-top: 1rem;
+    font-family: "Comic Sans MS", "Trebuchet MS", cursive; /* intentionally un-serious */
+    font-size: 1rem;
+    color: #e0ff9a;
+    opacity: 0.9;
+    text-shadow: 0 0 6px rgba(120, 255, 0, 0.4);
+  }
+  

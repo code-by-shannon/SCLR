@@ -26,11 +26,12 @@ if ($conn->connect_error) {
 
 /***** 1) Get season tracks (human-readable) *****/
 $sqlTracks = "
-  SELECT DISTINCT t.id AS track_id, t.course AS track_name
-  FROM SCLR_world_series_fall_2025 s
+  SELECT t.id AS track_id, t.course AS track_name
+  FROM January_Sprint_2026_No_BOP s
   JOIN tracks t ON t.id = s.track_id
-  ORDER BY FIELD(t.id, 52,74,39,11,77,51,36,5,54)
+  ORDER BY s.round ASC
 ";
+
 $resTracks = $conn->query($sqlTracks);
 if (!$resTracks) die('Tracks query failed: ' . htmlspecialchars($conn->error));
 
@@ -45,7 +46,7 @@ while ($row = $resTracks->fetch_assoc()) {
 /***** 2) Get season drivers (human-readable) *****/
 $sqlDrivers = "
   SELECT d.id AS driver_id, d.name AS driver_name
-  FROM SCLR_world_series_fall_2025_drivers sd
+  FROM January_Sprint_2026_No_BOP_drivers sd
   JOIN Drivers d ON d.id = sd.driver_id
   ORDER BY d.name ASC
 ";
@@ -87,7 +88,7 @@ $inDriver = implode(',', array_map('intval', $driverIds));
 /* 3a) Which tracks have been run at all (any row exists)? */
 $sqlCompleted = "
   SELECT r.track_id
-  FROM SCLR_WS_Fall_2025_Results r
+  FROM January_Sprint_2026_No_BOP_Results r
   WHERE r.track_id IN ($inTrack)
   GROUP BY r.track_id
 ";
@@ -103,7 +104,7 @@ $resCompleted->free();
 /* 3b) Pull results, and also know if a row existed (COUNT>0) */
 $sqlResults = "
   SELECT r.driver_id, r.track_id, SUM(r.points) AS pts, COUNT(*) AS row_count
-  FROM SCLR_WS_Fall_2025_Results r
+  FROM January_Sprint_2026_No_BOP_Results r
   WHERE r.track_id IN ($inTrack)
     AND r.driver_id IN ($inDriver)
   GROUP BY r.driver_id, r.track_id
@@ -237,9 +238,9 @@ usort($drivers, function($a, $b) {
   </p>
 
 <div id="svg">
-  <img src="imgs/a-w-4.svg" alt="A&W Logo" class="sponsor-logo">
-  <img src="imgs/haagen-dazs-2.svg" alt="Häagen-Dazs Logo" class="sponsor-logo">
-  <img src="imgs/brembo-logo-2.svg" alt="Brembo Logo" class="sponsor-logo">
+  <img src="../mad_science_sprint_series/imgs/rick_eyes.png" class="sponsor-logo">
+  <img src="../mad_science_sprint_series/imgs/beaker.png" alt="Häagen-Dazs Logo" class="sponsor-logo">
+  
 </div>
 
   <!-- Optional tiny auto-refresh (every 30s). Kill it if you don’t want it. -->

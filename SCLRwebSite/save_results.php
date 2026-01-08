@@ -24,9 +24,10 @@ if ($trackId <= 0) {
 $seasonDrivers = [];
 $q = "
   SELECT d.id
-  FROM SCLR_world_series_fall_2025_drivers sd
+  FROM January_Sprint_2026_No_BOP_drivers sd
   JOIN Drivers d ON d.id = sd.driver_id
 ";
+
 if (!($rs = $conn->query($q))) {
   $errors[] = "Could not load season drivers: " . htmlspecialchars($conn->error);
 } else {
@@ -66,14 +67,17 @@ $conn->begin_transaction();
 
 try {
   // Optional: replace any prior results for this track (so re-submits overwrite)
-  $del = $conn->prepare("DELETE FROM SCLR_WS_Fall_2025_Results WHERE track_id = ?");
+  $del = $conn->prepare(
+    "DELETE FROM January_Sprint_2026_No_BOP_Results WHERE track_id = ?"
+  );
+  
   $del->bind_param("i", $trackId);
   if (!$del->execute()) throw new Exception("Delete failed: " . $conn->error);
   $del->close();
 
   // Insert all chosen finishers
   $ins = $conn->prepare("
-    INSERT INTO SCLR_WS_Fall_2025_Results (track_id, driver_id, points)
+    INSERT INTO January_Sprint_2026_No_BOP_Results (track_id, driver_id, points)
     VALUES (?, ?, ?)
   ");
   if (!$ins) throw new Exception("Prepare insert failed: " . $conn->error);
@@ -133,7 +137,7 @@ echo "<p><a href='results.php'>&larr; Enter another race</a></p>";
 /***** OPTIONAL: show what’s now in the table for this track *****/
 $check = $conn->prepare("
   SELECT r.driver_id, d.name, r.points
-  FROM SCLR_WS_Fall_2025_Results r
+  FROM January_Sprint_2026_No_BOP_Results r
   JOIN Drivers d ON d.id = r.driver_id
   WHERE r.track_id = ?
   ORDER BY r.points DESC, d.name ASC

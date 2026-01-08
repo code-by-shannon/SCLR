@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 /***** TRACKS (radio list) *****/
 $sqlTracks = "
   SELECT DISTINCT t.id AS track_id, t.course AS track_name
-  FROM SCLR_world_series_fall_2025 s
+  FROM January_Sprint_2026_No_BOP s
   JOIN tracks t ON s.track_id = t.id
   ORDER BY t.course ASC
 ";
@@ -24,10 +24,11 @@ if (!$tracks) die('Tracks query failed: ' . htmlspecialchars($conn->error));
 /***** DRIVERS for this season *****/
 $sqlDrivers = "
   SELECT d.id, d.name
-  FROM SCLR_world_series_fall_2025_drivers sd
+  FROM January_Sprint_2026_No_BOP_drivers sd
   JOIN Drivers d ON d.id = sd.driver_id
   ORDER BY d.name ASC
 ";
+
 $drivers = $conn->query($sqlDrivers);
 if (!$drivers) die('Drivers query failed: ' . htmlspecialchars($conn->error));
 $driverOptions = $drivers->fetch_all(MYSQLI_ASSOC);
@@ -118,7 +119,7 @@ function ordinal_label($pos) {
       <?php endif; ?>
     </div>
 
-    <button type="submit">Submit (not wired yet)</button>
+    <button type="submit">Submit</button>
   </form>
 
   <!-- ✅ DRIVER LOCKOUT SCRIPT -->
