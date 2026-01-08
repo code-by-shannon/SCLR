@@ -1,9 +1,23 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: choose_user.php");
+    exit;
+}
+
+$currentUserId = (int)$_SESSION['user_id'];
+
 // ---- CONFIG ----
 $DB_HOST = "localhost";
 $DB_USER = "root";
 $DB_PASS = "";
-$DB_NAME = "SCLR"; // your schema name
+$DB_NAME = "SCLR";
+
 
 // ---- CONNECT ----
 $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
@@ -38,32 +52,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (!$errors) {
-        $stmt = $conn->prepare("INSERT INTO `Drivers` (`name`) VALUES (?)");
-        if (!$stmt) {
-            $errors[] = "Prepare failed: " . $conn->error;
-        } else {
-            $stmt->bind_param("s", $newDriver);
-            if ($stmt->execute()) {
-                $notice = "✅ Added driver: " . htmlspecialchars($newDriver);
-            } else {
-                $errors[] = "Insert failed: " . $stmt->error;
-            }
-            $stmt->close();
-        }
-    }
+      $stmt = $conn->prepare(
+          "INSERT INTO Drivers (name, user_id) VALUES (?, ?)"
+      );
+  
+      if (!$stmt) {
+          $errors[] = "Prepare failed: " . $conn->error;
+      } else {
+          $stmt->bind_param("si", $newDriver, $currentUserId);
+  
+          if ($stmt->execute()) {
+              $notice = "✅ Added driver: " . htmlspecialchars($newDriver);
+          } else {
+              $errors[] = "Insert failed: " . $stmt->error;
+          }
+  
+          $stmt->close();
+      }
+  }
+  
 }
 
 // ---- FETCH DRIVERS ----
-$result = $conn->query("SELECT `id`, `name` FROM `Drivers` ORDER BY `name` ASC");
+$stmt = $conn->prepare(
+  "SELECT id, name
+   FROM Drivers
+   WHERE user_id = ?
+   ORDER BY name ASC"
+);
+
+$stmt->bind_param("i", $currentUserId);
+$stmt->execute();
+$result = $stmt->get_result();
+
 $drivers = [];
-if ($result) {
-    while ($row = $result->fetch_assoc()) {
-        $drivers[] = $row;
-    }
-    $result->free();
-} else {
-    $errors[] = "Query failed: " . $conn->error;
+while ($row = $result->fetch_assoc()) {
+  $drivers[] = $row;
 }
+
+$stmt->close();
+
 
 // ---- FETCH WORLD SERIES ROUNDS WITH TRACK NAMES ----
 $seasonRows = [];
