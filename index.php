@@ -7,13 +7,14 @@
 
 <h1>Seriously Casual League Racing</h1>
 
-<a href="Season_App/choose_user.php">
+<a href="Season_App/choose_user.php?mode=new">
     <button>New User</button>
 </a>
 
-<a href="Season_App/choose_user.php">
+<a href="Season_App/choose_user.php?mode=existing">
     <button>Existing User</button>
 </a>
+
 
 </body>
 </html>
