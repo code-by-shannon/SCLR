@@ -14,6 +14,19 @@ if ($conn->connect_error) {
 $errors = [];
 $notice = "";
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_driver_id'])) {
+  $driverId = (int)$_POST['delete_driver_id'];
+
+  $stmt = $conn->prepare("DELETE FROM drivers WHERE id = ?");
+  $stmt->bind_param("i", $driverId);
+  $stmt->execute();
+  $stmt->close();
+
+  header("Location: drivers.php");
+  exit;
+}
+
+
 // ---- HANDLE CREATE (POST) ----
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newDriver = trim($_POST['driver_name'] ?? '');
@@ -94,6 +107,7 @@ $conn->close();
 <meta charset="UTF-8" />
 <title>Drivers</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+
 <style>
   body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 2rem; }
   h1 { margin-bottom: .5rem; }
@@ -108,6 +122,7 @@ $conn->close();
   th { background: #f6f6f6; }
   .muted { color:#666; font-size:.9rem; }
 </style>
+
 </head>
 <body>
   <a href="index.php">Home</a>
@@ -139,6 +154,7 @@ $conn->close();
       <tr>
         <th style="width:90px;">ID</th>
         <th>Driver</th>
+        <th style="width:110px;">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -147,9 +163,19 @@ $conn->close();
       <?php else: ?>
         <?php foreach ($drivers as $d): ?>
           <tr>
-            <td><?= (int)$d['id'] ?></td>
-            <td><?= htmlspecialchars($d['name']) ?></td>
-          </tr>
+  <td><?= (int)$d['id'] ?></td>
+  <td><?= htmlspecialchars($d['name']) ?></td>
+  <td>
+    <form method="post" style="display:inline;">
+      <input type="hidden" name="delete_driver_id" value="<?= (int)$d['id'] ?>">
+      <button type="submit"
+        onclick="return confirm('Delete this driver?');">
+        Delete
+      </button>
+    </form>
+  </td>
+</tr>
+
         <?php endforeach; ?>
       <?php endif; ?>
     </tbody>
