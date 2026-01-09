@@ -19,7 +19,8 @@ if (!isset($_SESSION['user_id'])) {
 <body>
     <h1>Welcome to Seriously Casual League Racing</h1>
     <ul>
-        <li><a href="drivers.php">View / Add Drivers to master DB</a></li>
+        <li>🧑‍✈️   <a href="drivers.php">View / Add Drivers to master DB</a></li>
+        <li>📅   <a href="">View Current Season / Season Archives</a></li>
         <li><a href="createNewSeason.php">Build a Season</a></li>
         <li><a href="driver_recruit_WS2025.php">Recruit Racers For a Series</a></li>
         <li><a href="results.php">Enter Race Results Form</a></li>
