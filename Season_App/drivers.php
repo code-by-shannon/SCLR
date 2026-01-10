@@ -5,9 +5,13 @@ error_reporting(E_ALL);
 
 session_start();
 
+define('BASE_URL', '/sclr/Season_App/');
+
+
 if (!isset($_SESSION['user_id'])) {
-    header("Location: choose_user.php");
-    exit;
+  header("Location: " . BASE_URL . "choose_user.php");
+  exit;
+  
 }
 
 $currentUserId = (int)$_SESSION['user_id'];

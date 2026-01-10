@@ -3,11 +3,14 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+define('BASE_URL', '/sclr/Season_App/');
+
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: choose_user.php");
+    header("Location: " . BASE_URL . "choose_user.php");
     exit;
+    
 }
 
 $currentUserId = (int)$_SESSION['user_id'];
@@ -65,6 +68,7 @@ while ($row = $res->fetch_assoc()) {
 $stmt->close();
 
 $conn->close();
+?>
 
 
 <!DOCTYPE html>
